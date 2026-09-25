@@ -1,0 +1,47 @@
+{
+  "name": "checkpoint-retro",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx prisma/seed.ts",
+    "check": "pnpm lint && pnpm typecheck && pnpm test"
+  },
+  "dependencies": {
+    "@prisma/client": "6.x",
+    "@tiptap/react": "3.x",
+    "@tiptap/starter-kit": "3.x",
+    "next": "16.x",
+    "react": "19.x",
+    "react-dom": "19.x",
+    "zod": "4.x"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.x",
+    "@types/node": "24.x",
+    "@types/react": "19.x",
+    "@types/react-dom": "19.x",
+    "eslint": "9.x",
+    "eslint-config-next": "16.x",
+    "prisma": "6.x",
+    "tsx": "4.x",
+    "typescript": "5.x",
+    "vitest": "3.x"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

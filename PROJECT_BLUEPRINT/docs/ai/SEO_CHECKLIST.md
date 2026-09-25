@@ -1,0 +1,21 @@
+# SEO Checklist
+
+- [ ] unique title
+- [ ] meta description
+- [ ] canonical
+- [ ] robots
+- [ ] OG title
+- [ ] OG description
+- [ ] OG image
+- [ ] locale
+- [ ] hreflang where translations exist
+- [ ] x-default policy respected
+- [ ] breadcrumb data where useful
+- [ ] Article/NewsArticle where applicable
+- [ ] semantic H1 exactly once
+- [ ] image alt
+- [ ] sitemap inclusion/exclusion correct
+- [ ] redirect behavior tested
+- [ ] pagination behavior correct
+- [ ] search/filter pages noindex where intended
+- [ ] no accidental duplicate localized pages

@@ -1,0 +1,385 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Locale {
+  RU
+  UK
+  EN
+}
+
+enum PostKind {
+  NEWS
+  ARTICLE
+  STORY
+}
+
+enum PostStatus {
+  DRAFT
+  IN_REVIEW
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum TranslationStatus {
+  DRAFT
+  REVIEW
+  READY
+  PUBLISHED
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+  AUTHOR
+  TRANSLATOR
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      UserRole @default(AUTHOR)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorProfile Author?
+  revisions     Revision[]
+  auditEvents   AuditEvent[]
+}
+
+model Author {
+  id        String   @id @default(cuid())
+  userId    String?  @unique
+  avatarId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User?               @relation(fields: [userId], references: [id])
+  avatar       MediaAsset?         @relation("AuthorAvatar", fields: [avatarId], references: [id])
+  translations AuthorTranslation[]
+  posts        Post[]
+}
+
+model AuthorTranslation {
+  id        String @id @default(cuid())
+  authorId  String
+  locale    Locale
+  slug      String
+  name      String
+  roleLabel String?
+  bio       String?
+
+  author Author @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@unique([locale, slug])
+  @@unique([authorId, locale])
+}
+
+model Post {
+  id              String      @id @default(cuid())
+  kind            PostKind
+  status          PostStatus  @default(DRAFT)
+  authorId        String?
+  featuredMediaId String?
+  publishedAt     DateTime?
+  scheduledAt     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  deletedAt       DateTime?
+
+  author        Author?     @relation(fields: [authorId], references: [id])
+  featuredMedia MediaAsset? @relation("PostFeaturedMedia", fields: [featuredMediaId], references: [id])
+
+  translations PostTranslation[]
+  revisions    Revision[]
+  categories   PostCategory[]
+  tags         PostTag[]
+  platforms    PostPlatform[]
+  eras         PostEra[]
+  placements   HomepagePlacement[]
+
+  @@index([status, publishedAt])
+  @@index([kind, publishedAt])
+}
+
+model PostTranslation {
+  id                String            @id @default(cuid())
+  postId            String
+  locale            Locale
+  slug              String
+  title             String
+  excerpt           String?
+  content           Json
+  seoTitle          String?
+  seoDescription    String?
+  ogTitle           String?
+  ogDescription     String?
+  sourceLocale      Locale?
+  translationStatus TranslationStatus @default(DRAFT)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([locale, slug])
+  @@unique([postId, locale])
+  @@index([locale, title])
+}
+
+model Revision {
+  id        String   @id @default(cuid())
+  postId    String
+  actorId   String?
+  snapshot  Json
+  note      String?
+  createdAt DateTime @default(now())
+
+  post  Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  actor User? @relation(fields: [actorId], references: [id])
+
+  @@index([postId, createdAt])
+}
+
+model MediaAsset {
+  id         String   @id @default(cuid())
+  storageKey String   @unique
+  mimeType   String
+  width      Int?
+  height     Int?
+  bytes      Int?
+  checksum   String?
+  credit     String?
+  sourceUrl  String?
+  alt        Json?
+  caption    Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  featuredIn   Post[]   @relation("PostFeaturedMedia")
+  authorAvatars Author[] @relation("AuthorAvatar")
+}
+
+model Category {
+  id           String                @id @default(cuid())
+  key          String                @unique
+  sortOrder    Int                   @default(0)
+  translations CategoryTranslation[]
+  posts        PostCategory[]
+}
+
+model CategoryTranslation {
+  id          String @id @default(cuid())
+  categoryId  String
+  locale      Locale
+  slug        String
+  name        String
+  description String?
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([locale, slug])
+  @@unique([categoryId, locale])
+}
+
+model Tag {
+  id           String           @id @default(cuid())
+  key          String           @unique
+  translations TagTranslation[]
+  posts        PostTag[]
+}
+
+model TagTranslation {
+  id     String @id @default(cuid())
+  tagId  String
+  locale Locale
+  slug   String
+  name   String
+
+  tag Tag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([locale, slug])
+  @@unique([tagId, locale])
+}
+
+model Platform {
+  id           String                @id @default(cuid())
+  key          String                @unique
+  colorToken   String?
+  translations PlatformTranslation[]
+  posts        PostPlatform[]
+}
+
+model PlatformTranslation {
+  id         String @id @default(cuid())
+  platformId String
+  locale     Locale
+  slug       String
+  name       String
+
+  platform Platform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  @@unique([locale, slug])
+  @@unique([platformId, locale])
+}
+
+model Era {
+  id           String           @id @default(cuid())
+  key          String           @unique
+  startYear    Int?
+  endYear      Int?
+  translations EraTranslation[]
+  posts        PostEra[]
+}
+
+model EraTranslation {
+  id     String @id @default(cuid())
+  eraId  String
+  locale Locale
+  slug   String
+  name   String
+
+  era Era @relation(fields: [eraId], references: [id], onDelete: Cascade)
+
+  @@unique([locale, slug])
+  @@unique([eraId, locale])
+}
+
+model PostCategory {
+  postId     String
+  categoryId String
+
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([postId, categoryId])
+}
+
+model PostTag {
+  postId String
+  tagId  String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+}
+
+model PostPlatform {
+  postId     String
+  platformId String
+
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  platform Platform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  @@id([postId, platformId])
+}
+
+model PostEra {
+  postId String
+  eraId  String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  era  Era  @relation(fields: [eraId], references: [id], onDelete: Cascade)
+
+  @@id([postId, eraId])
+}
+
+model HomepagePlacement {
+  id         String   @id @default(cuid())
+  slot       String
+  postId     String
+  sortOrder  Int      @default(0)
+  activeFrom DateTime?
+  activeTo   DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([slot, sortOrder])
+}
+
+model SitePage {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  translations SitePageTranslation[]
+}
+
+model SitePageTranslation {
+  id             String @id @default(cuid())
+  pageId         String
+  locale         Locale
+  slug           String
+  title          String
+  content        Json
+  seoTitle       String?
+  seoDescription String?
+
+  page SitePage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@unique([locale, slug])
+  @@unique([pageId, locale])
+}
+
+model NavigationItem {
+  id        String  @id @default(cuid())
+  key       String  @unique
+  href      String?
+  sortOrder Int     @default(0)
+  isVisible Boolean @default(true)
+
+  translations NavigationItemTranslation[]
+}
+
+model NavigationItemTranslation {
+  id               String @id @default(cuid())
+  navigationItemId String
+  locale           Locale
+  label            String
+
+  navigationItem NavigationItem @relation(fields: [navigationItemId], references: [id], onDelete: Cascade)
+
+  @@unique([navigationItemId, locale])
+}
+
+model Redirect {
+  id         String   @id @default(cuid())
+  locale     Locale?
+  fromPath   String   @unique
+  toPath     String
+  statusCode Int      @default(301)
+  reason     String?
+  createdAt  DateTime @default(now())
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model AuditEvent {
+  id        String   @id @default(cuid())
+  actorId   String?
+  action    String
+  entity    String
+  entityId  String?
+  details   Json?
+  createdAt DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id])
+
+  @@index([entity, entityId])
+  @@index([createdAt])
+}

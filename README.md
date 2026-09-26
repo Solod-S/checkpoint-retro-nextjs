@@ -1,39 +1,51 @@
-# Checkpoint Retro — AI Development Kit
+# Checkpoint Retro
 
-В архиве два основных каталога:
+AI-ready starter repository for **Checkpoint Retro**.
 
-## `PROJECT_BLUEPRINT/`
-Полная спецификация проекта:
-- продукт;
-- архитектура;
-- PostgreSQL/Prisma;
-- админка;
-- SEO;
-- i18n RU/UK/EN;
-- безопасность;
-- search/media/performance;
-- дизайн-система;
-- спецификации страниц;
-- AI workflow, prompts и checklists;
-- 7 исходных visual references;
-- social assets только X, Facebook, Threads, Instagram.
+## Stack
+- Next.js App Router
+- React
+- TypeScript strict
+- PostgreSQL
+- Prisma
+- npm
+- custom admin architecture
+- RU / UK / EN
+- SEO-first public pages
+- Vitest + Playwright
 
-Начинать с:
-1. `PROJECT_BLUEPRINT/START_HERE.md`
-2. `PROJECT_BLUEPRINT/START_PROMPT.md`
-3. `PROJECT_BLUEPRINT/AGENTS.md`
+## Local runtime
+The project runs directly on the host OS:
 
-## `STARTER/`
-Минимальный Next.js skeleton:
-- App Router;
-- TypeScript strict;
-- PostgreSQL Docker Compose;
-- Prisma schema draft;
-- RU/UK/EN route shells;
-- design tokens;
-- базовые UI primitives;
-- sitemap/robots foundation;
-- Vitest/Playwright foundation;
-- правила для Codex/OpenCode, Claude Code, Cline и Cursor.
+```text
+Next.js / Node.js
+       ↓
+PostgreSQL localhost
+```
 
-Это development starter kit, а не готовый production CMS. Разработка должна идти по фазам из `PROJECT_BLUEPRINT/docs/ai/WORKFLOW.md`.
+## Production target
+
+```text
+Internet / Cloudflare (optional)
+        ↓
+      Nginx
+        ↓
+Next.js / Node.js under PM2
+        ↓
+   PostgreSQL
+```
+
+## Start here
+Read in this order:
+1. `START_HERE.md`
+2. `docs/GETTING_STARTED.md`
+3. `AGENTS.md`
+4. `START_PROMPT.md`
+5. `docs/ai/WORKFLOW.md`
+
+## Important
+- `.env.local` is private and ignored by Git.
+- AI agents may read `.env.example`, but must not read `.env.local`.
+- Production social networks: X/Twitter, Facebook, Threads, Instagram.
+- Do not add VK or YouTube to production UI/assets.
+- Build the product phase-by-phase; do not ask an agent to implement the entire portal in one task.

@@ -1,0 +1,122 @@
+{
+  "nav": {
+    "home": "Home",
+    "news": "News",
+    "articles": "Articles",
+    "search": "Search",
+    "about": "About"
+  },
+  "tagline": "GAMES. PEOPLE. STORIES. THAT ENDURE.",
+  "savePoint": "A SAVE POINT FOR GREAT GAMES",
+  "language": "Language",
+  "menu": {
+    "open": "Open menu",
+    "close": "Close menu"
+  },
+  "home": {
+    "kicker": "FEATURED STORY",
+    "title": "Checkpoint Retro",
+    "subtitle": "Chronicles of classic gaming, pivotal creators, and enduring legacies.",
+    "cta": "Read Story",
+    "latestNews": "LATEST NEWS",
+    "allNews": "All News",
+    "articlesAndStories": "ARTICLES & ESSAYS",
+    "allArticles": "All Articles",
+    "breaking": "BREAKING"
+  },
+  "news": {
+    "title": "News",
+    "description": "Latest retro gaming news, retro console announcements, fan translations, and classic re-releases.",
+    "allNews": "All News",
+    "sortNewest": "Newest first",
+    "popularWeekly": "Popular This Week",
+    "views": "views",
+    "filterAriaLabel": "Filter news by platform"
+  },
+  "articles": {
+    "title": "Articles & Stories",
+    "description": "Longreads, investigations, making-of stories, and analysis of vintage video game eras.",
+    "editorPicks": "Editor's Picks",
+    "viewAll": "View all",
+    "historyByEra": "Gaming History by Era",
+    "historyKicker": "Key games, events, and figures that shaped the industry.",
+    "latestMaterials": "Latest Stories",
+    "sortNewest": "Newest first",
+    "filterAriaLabel": "Filter articles by category"
+  },
+  "about": {
+    "title": "About Checkpoint Retro",
+    "missionLead": "Preserving the histories of games, creators, and technology that shaped the medium.",
+    "missionP1": "Checkpoint Retro is an independent publication dedicated to classic video games, vintage hardware, and the pioneers behind gaming culture.",
+    "missionP2": "We deliver thoroughly researched histories, unearth rare design archives, and celebrate golden eras from 8-bit to Dreamcast and beyond.",
+    "values": "Our Values",
+    "timeline": "Our Journey",
+    "timelineKicker": "From initial retrospectives to a thriving archive, preserving pivotal gaming heritage.",
+    "team": "Our Team",
+    "teamKicker": "A dedicated cohort of gaming historians, researchers, and archivists.",
+    "suggestTopic": "Pitch a Story",
+    "suggestDesc": "Have an unpublished development lead, rare archive, or forgotten history? We'd love to hear from you.",
+    "suggestBtn": "Pitch a Story →"
+  },
+  "newsletter": {
+    "title": "MORE TIMELESS STORIES",
+    "subtitle": "Get our best longreads, curated archives, and retro gaming news in your inbox.",
+    "placeholder": "Your e-mail",
+    "button": "SUBSCRIBE",
+    "success": "You have successfully subscribed to updates!",
+    "ariaLabel": "Email for newsletter"
+  },
+  "share": {
+    "save": "Bookmark article",
+    "saved": "Bookmarked",
+    "share": "Share",
+    "copied": "Link copied!",
+    "discuss": "Discuss in comments"
+  },
+  "toc": {
+    "title": "Table of Contents"
+  },
+  "pagination": {
+    "navLabel": "Page navigation",
+    "prev": "Previous page",
+    "next": "Next page"
+  },
+  "searchPage": {
+    "title": "Search",
+    "subtitle": "Discover deep dives, news, and history across vintage video games",
+    "placeholder": "Search archive (e.g. Dreamcast, Super Nintendo, Doom...)",
+    "button": "Search",
+    "all": "All",
+    "news": "News",
+    "articles": "Articles",
+    "allPlatforms": "All platforms",
+    "foundWithQuery": "Found {count} results for «{query}»",
+    "archiveCatalog": "Archive Catalog: {count} entries",
+    "notFoundTitle": "No results found",
+    "notFoundDesc": "No materials matched «{query}». Check spelling or try selecting another platform filter.",
+    "popularQueries": "Popular Searches",
+    "recentQueries": "Recent Searches",
+    "helpTitle": "Can't find what you're looking for?",
+    "helpDesc": "Try adjusting your query or filters. Our archive preserves scores of deep dives and historical records.",
+    "relatedTopics": "Related Topics",
+    "viewAll": "View all",
+    "reset": "Reset filters",
+    "noResultsQuery": "No materials match the selected criteria."
+  },
+  "content": {
+    "minRead": "min read",
+    "news": "NEWS",
+    "article": "ARTICLE",
+    "story": "STORY",
+    "relatedMaterials": "Related Stories",
+    "viewAll": "View All",
+    "backToNews": "← Back to all news",
+    "backToArticles": "← Back to all articles",
+    "otherNews": "Other News",
+    "editorialTeam": "Checkpoint Editorial Team"
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "comingSoon": "Article is being prepared for publication."
+  }
+}

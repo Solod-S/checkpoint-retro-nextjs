@@ -1,5 +1,0 @@
-Before coding, read AGENTS.md.
-Follow project phases and design tokens.
-Never read or expose .env values.
-Never perform destructive database operations without explicit user approval.
-Production social set: X/Twitter, Facebook, Threads, Instagram. No VK/YouTube.
